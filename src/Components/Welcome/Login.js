@@ -1,6 +1,21 @@
 import React from 'react';
+import fire from '../../config/fire';
 
     class Login extends React.Component {
+
+        constructor(props){
+            super(props)
+            this.state={ email:'',password:''}
+        }
+
+        login(e) {
+            e.preventDefault();
+            fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
+            }).catch((error) => {
+                console.log(error);
+              });
+          }
+
     render(){
 
         const style = {
@@ -20,15 +35,15 @@ import React from 'react';
     <form class="ui container form" style={style}>
         <div class="field">
             <label>Name</label>
-            <input type="text" name="name" placeholder="Name"/>
+            <input type="text" name="name" placeholder="Name" onChange={e => this.setState({email:e.target.value})}/>
         </div>
         <div class="field">
             <label>Password</label>
-            <input type="password" name="password" placeholder="Password" />
+            <input type="password" name="password" placeholder="Password" onChange={e => this.setState({password:e.target.value})}/>
         </div>
         <div class="field">
         </div>
-        <button class="ui primary button" type="submit">Login</button>
+        <button class="ui primary button" type="submit" onSubmit={this.onSubmit}>Login</button>
     </form>
     </div>
 
