@@ -1,5 +1,7 @@
 import React from 'react';
-//import fire from '../../config/fire';
+import fire from '../../config/fire';
+//import firebase from 'firebase';
+// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 const style = {
     height: '90vh',
@@ -9,49 +11,53 @@ const style = {
     justifyContent: 'center'
 }
 
+
     class Register extends React.Component {
 
+    signUp(e) {
+        e.preventDefault();
+        const email = document.querySelector('#email').value;
+        const password = document.querySelector('#password').value;
+        console.log(email,password);
+        
+        fire.auth().createUserWithEmailAndPassword(email, password)
+        .then((u) => {
+            console.log('Successfully Signed Up');
+        })
+        .catch((err) => {
+            console.log('Error: ' + err.toString());
+        })
+    }
 
-        constructor(props) {
-            super(props)
-            this.state={ email:'',password:''}
-        }
-
-        // signup(e){
-        // e.preventDefault();
-        // fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-        // }).then((u)=>{console.log(u)})
-        // .catch((error) => {
-        //     console.log(error);
-        //     })
-        // }
-
-        componentDidUpdate(){
-            console.log(this.state.email, this.state.password);
-        }
-
+    login(e) {
+        e.preventDefault();
+        const email = document.querySelector('#email').value;
+        const password = document.querySelector('#password').value;
+        fire.auth().signInWithEmailAndPassword(email, password)
+        .then((u) => {
+            console.log('Successfully Logged In');
+        })
+        .catch((err) => {
+            console.log('Error: ' + err.toString());
+        })
+    }
 
     render(){
         return (
-    <div>
-    <div>
-        <button class="ui button" type="submit" style={{marginTop: '20px',float: 'right', marginRight: '20px'}}>Login</button>
-    </div>
-    <form class="ui container form" style={style}>
-        <div class="field">
-            <label>Set UserName</label>
-            <input type="text" name="name" placeholder="Name" onChange={e => this.setState({email:e.target.value})}/>
-        </div>
-        <div class="field">
-            <label>Set Password</label>
-            <input type="password" name="password" placeholder="Password" onChange={e => this.setState({password:e.target.value})}/>
-        </div>
-        <div class="field">
-        </div>
-        <button class="ui primary button" type="submit" onSubmit={this.signup}>Register</button>
-    </form>
-    </div>
-
+        <form className="ui container form" style={style} >
+            <div className="field">
+                <div style={{ textAlign: 'center' }} >Email</div>
+                <input id="email" placeholder="Enter Email.." type="text"/>
+            </div>
+            <div className="field">
+                <div style={{ textAlign: 'center' }}>Password</div>
+                <input id="password" placeholder="Enter Password.." type="text"/>
+            </div>
+            <div style={{display:'flex'}}>
+                <button className="ui green button" style={{margin: '10px'}} onClick={this.login}>Login</button>
+                <button className="ui button" style={{margin: '10px'}} onClick={this.signUp}>Sign Up</button>
+            </div>
+        </form>
         )
     }
     }

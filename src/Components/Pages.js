@@ -1,37 +1,32 @@
 import React from 'react';
 import Clock from './Clock';
-import Questions from './Questions';
+// import Questions from './Questions';
 
 
 
-const Pages= props => {
-    
+class Pages extends React.Component {
 
-        //console.log(this.props.data);
-        const data1 = props.data[0];
-        //console.log(data1)
-        // const data2 = data1.map(data => {
-        //     //console.log(data)
-        // return(
-        //  <Questions data={data.question}/>
-        // )
-        // });
+constructor(props){
+    super(props)
+    this.state={nextQuestion: 0}
+}
+    render(){
+        const data1 = this.props.data;
+        //console.log(data1);
+        data1.forEach(myfunction);
+        function myfunction(data){
+            
+            return console.log(data);
+        }
 
-
-        // data1.forEach(data => {
-        //     console.log(data)
-        // });
-    
-        //replace(/&quot;/g,'"')
-    
         return (
             <div>
-            <Clock/>,
-            <Questions data={data1}/>
+            <Clock/>
+             <Questions data={data1}/>
             </div>
-
         )
-    
+    }
 }
+// <Questions data={data1}/>
 
 export default Pages;

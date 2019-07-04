@@ -1,5 +1,7 @@
 import React from "react";
-
+import fire from '../config/fire';
+import {Link} from 'react-router-dom';
+ 
 
 const wrapper = {
   display: "grid",
@@ -50,6 +52,10 @@ class Questions extends React.Component{
         }
           shuffleArray(answers);
     }
+
+    logout() {
+      fire.auth().signOut();
+    }
     render(){
         return (
                 <div className="ui container" style={container}>
@@ -72,7 +78,9 @@ class Questions extends React.Component{
                         <div class="or"></div>
                       <button class="ui  button">Visit Later</button>
                     </div>
-                    <button class="ui red button" style={{float:'right'}}>End Test</button>
+                    <Link to ="/">
+                    <button class="ui red button" style={{float:'right'}}  onClick = {this.logout}>End Test</button>
+                    </Link>
                   </div>
                 </div>
         )
